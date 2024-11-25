@@ -22,7 +22,7 @@ class TranslatorShow:
     FUNCTION = "transmit"
 
     def transmit(self, input_text):
-        return input_text
+        return (input_text,)
 
 class CNtranslator:
     def __init__(self):
@@ -36,28 +36,28 @@ class CNtranslator:
             "required": {
                 "input": ("STRING", {"forceInput": True}),
                 "CN2EN": ("BOOLEAN", {"default": True}),
-                "out": ("STRING", {"default": "", "multiline": True})
             },
         }
     
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("output",)
     OUTPUT_NODE = True
+    DESCRIPTION = "The node friendly to Chinese mainland."  
     FUNCTION = "translate"
 
-    def translate(self, input, CN2EN, out):
+    def translate(self, input, CN2EN):
         tags = re.split(r',|，', input)
         
         translations = [None] * len(tags)
+        translator = ChineseTranslator()
         with ThreadPoolExecutor(max_workers=50) as executor:
-            future_to_index = {executor.submit(ChineseTranslator.translate, tag, CN2EN): i for i, tag in enumerate(tags)}
+            future_to_index = {executor.submit(translator.translate, tag, CN2EN): i for i, tag in enumerate(tags)}
             for future in as_completed(future_to_index):
                 index = future_to_index[future]
                 translations[index] = future.result()
-        ChineseTranslator.close_session()
+        translator.close_session()
         
         output = ",".join(filter(None, translations))
-        out = output
         return (output,)
     
 class ChineseTranslator:
