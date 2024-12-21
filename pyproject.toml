@@ -10,6 +10,6 @@ Repository = "https://github.com/SleeeepyZhou/ComfyUI-CNtranslator"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "sleeeepyzhou"
 DisplayName = "ComfyUI-CNtranslator"
 Icon = ""
