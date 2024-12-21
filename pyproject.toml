@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-cntranslator"
+description = "A translation node for users in Chinese Mainland. (Because of the network firewall in Chinese Mainland, many translation APIs cannot be used normally.)"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["requests"]
+
+[project.urls]
+Repository = "https://github.com/SleeeepyZhou/ComfyUI-CNtranslator"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-CNtranslator"
+Icon = ""
